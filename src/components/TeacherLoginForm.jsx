@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { closeModal } from "../util/modal";
+import { closeModal, modalIDs } from "../util/modal";
 import { useTeacherLogin } from "../react-query/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -15,12 +15,13 @@ const TeacherLoginForm = () => {
     login(
       { password },
       {
-        onSuccess: () => {
-          closeModal("login-modal");
-          navigate("/dashboard");
+        onSuccess: (s) => {
+          console.log(s);
+          closeModal(modalIDs.teacher_login);
+          navigate("/dashboard/" + s.role.toLowerCase());
         },
         onError: (e) => setErrMessage(e.response.data.message),
-      }
+      },
     );
   };
   return (
@@ -50,7 +51,7 @@ const TeacherLoginForm = () => {
       <button
         disabled={isPending}
         onClick={() => {
-          closeModal("login-modal");
+          closeModal(modalIDs.teacher_login);
         }}
         type="button"
         className="btn btn-lg btn-link"

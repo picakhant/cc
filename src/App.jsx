@@ -7,6 +7,8 @@ import TeacherHome from "./pages/dashboard/teacher/Home";
 import StudentHome from "./pages/dashboard/student/Home";
 import StudentLayout from "./layouts/StudentLayout";
 import Exam from "./pages/dashboard/student/Exam";
+import TeacherLayout from "./layouts/TeacherLayout";
+import Material from "./pages/dashboard/teacher/Material";
 
 const App = () => {
   return (
@@ -22,7 +24,10 @@ const App = () => {
           }
         >
           <Route index element={<Dashboard />} />
-          <Route path="teacher" element={<TeacherHome />} />
+          <Route path="teacher" element={<TeacherLayout />}>
+            <Route index element={<TeacherHome />} />
+            <Route path="material" element={<Material />} />
+          </Route>
           <Route path="student" element={<StudentLayout />}>
             <Route index element={<StudentHome />} />
             <Route path="exam" element={<Exam />} />
