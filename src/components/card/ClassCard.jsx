@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { randomImage } from "../../util/randomImg";
+import { modalIDs, openModal } from "../../util/modal";
+import { useClassStore } from "../../store/useClassStore";
 
 const ClassCard = ({ roomName }) => {
   const [image, setImage] = useState();
+
+  const { setFocusClass } = useClassStore();
 
   useEffect(() => {
     setImage(randomImage());
@@ -16,7 +20,15 @@ const ClassCard = ({ roomName }) => {
         <div className="flex flex-col gap-1  rounded-xl justify-center items-center">
           <div className="text-xl font-semibold">{roomName}</div>
           <div className="text-lg">Students 30</div>
-          <button className="btn btn-sm">delete</button>
+          <button
+            onClick={() => {
+              openModal(modalIDs.teacher_delete_class);
+              setFocusClass(roomName)
+            }}
+            className="btn btn-sm"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>

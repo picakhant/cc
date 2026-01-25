@@ -11,12 +11,16 @@ const Home = () => {
         <div className="col-span-12 h-screen flex flex-col justify-center items-center">
           <span className="loading text-primary loading-spinner loading-xl"></span>
         </div>
-      ) : (
+      ) : data.list.length > 0 ? (
         data.list.map((c) => (
           <div className="col-span-2" key={c}>
             <ClassCard roomName={c} />
           </div>
         ))
+      ) : (
+        <div className="col-span-2">
+          No calss here
+        </div>
       )}
       <div className="col-span-2 ">
         <div

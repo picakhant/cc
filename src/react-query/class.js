@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import QueryKeys from "./key";
-import { addClass, getClassList } from "../api/class";
+import { addClass, deleteClass, getClassList } from "../api/class";
 
 export const useGetClassList = () => {
   return useQuery({
@@ -13,6 +13,16 @@ export const useAddClass = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ classRoom }) => addClass(classRoom),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.get_class_list] });
+    },
+  });
+};
+
+export const useDeleteClass = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ classRoom }) => deleteClass(classRoom),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.get_class_list] });
     },

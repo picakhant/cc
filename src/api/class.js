@@ -19,3 +19,12 @@ export const addClass = async (classRoom) => {
     throw error;
   }
 };
+
+export const deleteClass = async (classRoom) => {
+  try {
+    const { data } = await instance.delete("/teacher/class/" + classRoom);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

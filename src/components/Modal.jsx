@@ -1,7 +1,7 @@
-const Modal = ({ id, children }) => {
+const Modal = ({ id, children, width }) => {
   return (
     <dialog id={id} className="modal">
-      <div className="modal-box">{children}</div>
+      <div className={`modal-box ${width && width}`}>{children}</div>
     </dialog>
   );
 };
