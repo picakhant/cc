@@ -16,7 +16,6 @@ const TeacherLoginForm = () => {
       { password },
       {
         onSuccess: (s) => {
-          console.log(s);
           closeModal(modalIDs.teacher_login);
           navigate("/dashboard/" + s.role.toLowerCase());
         },
