@@ -1,11 +1,21 @@
 import { MdDriveFolderUpload } from "react-icons/md";
 import { modalIDs, openModal } from "../../../util/modal";
 import SelectCalss from "../../../components/from/SelectCalss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetTeacherUploadedMaterials } from "../../../react-query/material";
+import { FaTrashAlt } from "react-icons/fa";
+import { useClassStore } from "../../../store/useClassStore";
 
 const Material = () => {
   const [room, setRoom] = useState();
+  const { setFocusClass } = useClassStore();
+
+  useEffect(() => {
+    if (room) {
+      setFocusClass(room);
+    }
+  }, [room]);
+
 
   const { data, isLoading } = useGetTeacherUploadedMaterials(room);
   return (
@@ -22,6 +32,16 @@ const Material = () => {
             <MdDriveFolderUpload />
             Upload Material
           </button>
+          <button
+            onClick={() => {
+              openModal(modalIDs.teacher_delete_material);
+            }}
+            disabled={!room}
+            className="btn btn-error"
+          >
+            <FaTrashAlt />
+            delete
+          </button>
         </div>
       </div>
 
@@ -30,14 +50,17 @@ const Material = () => {
           loading...
         </div>
       ) : (
-        data?.list.map(
-          (f) => { 
-            return <div className="flex flex-col gap-2 justify-center items-center" key={f}>
+        data?.list.map((f) => {
+          return (
+            <div
+              className="flex flex-col gap-2 justify-center items-center"
+              key={f}
+            >
               <img src={"/image/zip.png"} alt="img" className="h-20" />
               <div className="text-lg">{f}</div>
             </div>
-           }
-        )
+          );
+        })
       )}
     </div>
   );

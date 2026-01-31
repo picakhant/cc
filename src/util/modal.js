@@ -13,4 +13,6 @@ export const modalIDs = {
   teacher_add_class: "teacher-add-class-modal",
   teacher_delete_class: "teacher-delete-class-modal",
   teacher_upload_material: "teacher-upload-material-modal",
+  teacher_delete_material: "teacher-delete-material",
+  teacher_add_folder: "teacher-add-folder",
 };

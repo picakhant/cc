@@ -24,3 +24,26 @@ export const getTeacherUploadedMaterials = async (room) => {
     throw error;
   }
 };
+
+export const deleteTeacherMaterial = async (room, fileName) => {
+  try {
+    const { data } = await instance.delete(
+      `/teacher/class/teacher-materials/${room}?fileName=${fileName}`,
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const addFolder = async (folderName, room) => {
+  try {
+    const { data } = await instance.post(
+      `/teacher/add-student-upload-dir/${room}`,
+      { folderName },
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
