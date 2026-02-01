@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addFolder,
   deleteTeacherMaterial,
+  getStudentFileBucketList,
   getTeacherUploadedMaterials,
   teacherUplaodMaterial,
 } from "../api/material";
@@ -47,5 +48,18 @@ export const useTeacherAddFolder = () => {
     mutationFn: ({ folderName, room }) => {
       return addFolder(folderName, room);
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.get_teacher_student_bucket_list],
+      });
+    },
+  });
+};
+
+export const usegetStudentFileBucketList = (room) => {
+  return useQuery({
+    queryKey: [QueryKeys.get_teacher_student_bucket_list, room],
+    queryFn: () => getStudentFileBucketList(room),
+    enabled: !!room,
   });
 };

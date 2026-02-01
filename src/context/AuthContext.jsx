@@ -11,7 +11,7 @@ export const AuthContextProvider = ({ children }) => {
     return <>Loading....</>;
   }
 
-  if (!data.isLogin) {
+  if (!data?.isLogin || !data) {
     return <Navigate to={"/"} />;
   }
 

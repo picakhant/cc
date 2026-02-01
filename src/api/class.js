@@ -28,3 +28,26 @@ export const deleteClass = async (classRoom) => {
     throw error;
   }
 };
+
+export const registerStudents = async (classRoom, file) => {
+  try {
+    const studentList = new FormData();
+    studentList.append("teacherUpload", file);
+    const { data } = await instance.post(
+      "/teacher/register-student/" + classRoom,
+      studentList,
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getStudentLists = async (classRoom) => {
+  try {
+    const { data } = await instance.get("/teacher/student-list/" + classRoom);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

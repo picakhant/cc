@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { teacherLogin, verifyIsLogin } from "../api/auth";
+import { logout, teacherLogin, verifyIsLogin } from "../api/auth";
+
+export const useUserLogout = () => {
+  return useMutation({
+    mutationFn: logout,
+  });
+};
 
 export const useTeacherLogin = () => {
   return useMutation({
@@ -7,9 +13,9 @@ export const useTeacherLogin = () => {
   });
 };
 
-export const userVerifyIsLogin = () => { 
+export const userVerifyIsLogin = () => {
   return useQuery({
     queryKey: ["verify-user-login"],
     queryFn: verifyIsLogin,
   });
- }
+};

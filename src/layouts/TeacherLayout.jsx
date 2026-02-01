@@ -1,8 +1,9 @@
-import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import Sidebar from "../components/teacher/Sidebar";
+import { IoLogOutOutline } from "react-icons/io5";
 import TeacherModalContainer from "../components/teacher/TeacherModalContainer";
+import { modalIDs, openModal } from "../util/modal";
 
 const TeacherLayout = () => {
   const { user } = useAuthContext();
@@ -38,7 +39,17 @@ const TeacherLayout = () => {
                 <path d="M14 10l2 2l-2 2"></path>
               </svg>
             </label>
-            <div className="px-4">Navbar Title</div>
+            <div className="px-4 flex items-center gap-2">
+              Teacher Dashboard
+            </div>
+            <div
+              onClick={() => {
+                openModal(modalIDs.teacher_logout);
+              }}
+              className="btn ms-auto btn-error btn-sm"
+            >
+              logout <IoLogOutOutline />
+            </div>
           </nav>
           {/* Page content here */}
           <div className="p-4">

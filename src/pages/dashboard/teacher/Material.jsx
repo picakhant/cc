@@ -16,8 +16,8 @@ const Material = () => {
     }
   }, [room]);
 
-
   const { data, isLoading } = useGetTeacherUploadedMaterials(room);
+  console.log(data);
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12">
@@ -26,6 +26,7 @@ const Material = () => {
             <SelectCalss setRoom={setRoom} />
           </div>
           <button
+            disabled={!room}
             onClick={() => openModal(modalIDs.teacher_upload_material)}
             className="btn btn-primary"
           >
@@ -49,18 +50,29 @@ const Material = () => {
         <div className="col-span-12 h-screen flex flex-col justify-center items-center">
           loading...
         </div>
+      ) : room ? (
+        data?.list.length > 0 ? (
+          data?.list.map((f) => {
+            return (
+              <div
+                className="flex flex-col gap-2 justify-center items-center"
+                key={f}
+              >
+                <img src={"/image/zip.png"} alt="img" className="h-20" />
+                <div className="text-lg">{f}</div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="h-screen col-span-12 flex flex-col justify-center items-center">
+            <img src={"/image/error.gif"} alt="img" className="h-40" />
+            <div className="text-2xl font-semibold">No Material in {room}</div>
+          </div>
+        )
       ) : (
-        data?.list.map((f) => {
-          return (
-            <div
-              className="flex flex-col gap-2 justify-center items-center"
-              key={f}
-            >
-              <img src={"/image/zip.png"} alt="img" className="h-20" />
-              <div className="text-lg">{f}</div>
-            </div>
-          );
-        })
+        <div className="h-screen text-2xl col-span-12 flex flex-col justify-center items-center">
+          Pick a room for actions!
+        </div>
       )}
     </div>
   );

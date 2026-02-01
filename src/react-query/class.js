@@ -1,6 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import QueryKeys from "./key";
-import { addClass, deleteClass, getClassList } from "../api/class";
+import {
+  addClass,
+  deleteClass,
+  getClassList,
+  getStudentLists,
+  registerStudents,
+} from "../api/class";
+
+export const useGetStudentList = (room) => {
+  return useQuery({
+    queryKey: [QueryKeys.get_student_list, room],
+    queryFn: () => getStudentLists(room),
+    enabled: !!room,
+  });
+};
 
 export const useGetClassList = () => {
   return useQuery({
@@ -25,6 +39,16 @@ export const useDeleteClass = () => {
     mutationFn: ({ classRoom }) => deleteClass(classRoom),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.get_class_list] });
+    },
+  });
+};
+
+export const useRegisterStudents = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ classRoom, file }) => registerStudents(classRoom, file),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.get_student_list] });
     },
   });
 };

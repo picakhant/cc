@@ -5,6 +5,8 @@ import DeleteClassForm from "../from/DeleteClassForm";
 import TeacherUploadMaterialForm from "../from/TeacherUploadMaterialForm";
 import DeletMaterialForm from "../from/DeletMaterialForm";
 import AddFolder from "../from/AddFolder";
+import RegisterStudentForm from "../from/RegisterStudentForm";
+import LogoutForm from "../from/LogoutForm";
 
 const TeacherModalContainer = () => {
   return (
@@ -26,6 +28,14 @@ const TeacherModalContainer = () => {
 
       <Modal id={modalIDs.teacher_add_folder}>
         <AddFolder />
+      </Modal>
+
+      <Modal id={modalIDs.teacher_register_students}>
+        <RegisterStudentForm />
+      </Modal>
+
+      <Modal width={"w-[400px]"} id={modalIDs.teacher_logout}>
+        <LogoutForm />
       </Modal>
     </>
   );

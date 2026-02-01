@@ -47,3 +47,12 @@ export const addFolder = async (folderName, room) => {
     throw error;
   }
 };
+
+export const getStudentFileBucketList = async (room) => {
+  try {
+    const { data } = await instance.get(`/teacher/student-upload-dir/${room}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

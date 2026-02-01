@@ -17,3 +17,12 @@ export const teacherLogin = async (password) => {
     throw error;
   }
 };
+
+export const logout = async () => {
+  try {
+    const res = await instance.post("/auth/logout");
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
