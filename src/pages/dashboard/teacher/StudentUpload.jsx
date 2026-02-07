@@ -3,10 +3,12 @@ import { modalIDs, openModal } from "../../../util/modal";
 import SelectCalss from "../../../components/from/SelectCalss";
 import { useClassStore } from "../../../store/useClassStore";
 import { usegetStudentFileBucketList } from "../../../react-query/material";
+import { useBucketStore } from "../../../store/useBucketStore";
 
 const StudentUpload = () => {
   const [room, setRoom] = useState();
   const { setFocusClass, focusClass } = useClassStore();
+  const { setFocusBucket } = useBucketStore();
 
   const { data, isLoading } = usegetStudentFileBucketList(room);
 
@@ -41,6 +43,10 @@ const StudentUpload = () => {
           data?.list.map((f) => {
             return (
               <div
+                onClick={() => {
+                  setFocusBucket(f);
+                  openModal(modalIDs.teacher_delete_student_upload_bucket);
+                }}
                 className="flex flex-col gap-2 justify-center items-center"
                 key={f}
               >

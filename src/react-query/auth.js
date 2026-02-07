@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { logout, teacherLogin, verifyIsLogin } from "../api/auth";
+import { logout, studentLogin, teacherLogin, verifyIsLogin } from "../api/auth";
+import QueryKeys from "./key";
+import { getPublicClassList } from "../api/public";
 
 export const useUserLogout = () => {
   return useMutation({
@@ -17,5 +19,19 @@ export const userVerifyIsLogin = () => {
   return useQuery({
     queryKey: ["verify-user-login"],
     queryFn: verifyIsLogin,
+  });
+};
+
+export const useGetPublicClassList = () => {
+  return useQuery({
+    queryKey: [QueryKeys.get_public_class],
+    queryFn: getPublicClassList,
+  });
+};
+
+export const useStudentLogin = () => {
+  return useMutation({
+    mutationFn: ({ room, rowNumber, username }) =>
+      studentLogin(room, rowNumber, username),
   });
 };

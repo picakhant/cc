@@ -2,14 +2,13 @@ import { useUserLogout } from "../../react-query/auth";
 import { closeModal, modalIDs } from "../../util/modal";
 import { useNavigate } from "react-router-dom";
 
-const LogoutForm = () => {
+const LogoutForm = ({modalId}) => {
   const { mutate } = useUserLogout();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     mutate(undefined, {
       onSuccess: () => {
-        console.log(123);
         navigate("/");
       },
     });
@@ -23,7 +22,7 @@ const LogoutForm = () => {
         <button
           type="button"
           onClick={() => {
-            closeModal(modalIDs.teacher_logout);
+            closeModal(modalId);
           }}
           className="btn"
         >

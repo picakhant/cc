@@ -7,6 +7,7 @@ import DeletMaterialForm from "../from/DeletMaterialForm";
 import AddFolder from "../from/AddFolder";
 import RegisterStudentForm from "../from/RegisterStudentForm";
 import LogoutForm from "../from/LogoutForm";
+import DeleteBucketForm from "../from/DeleteBucketForm";
 
 const TeacherModalContainer = () => {
   return (
@@ -36,6 +37,13 @@ const TeacherModalContainer = () => {
 
       <Modal width={"w-[400px]"} id={modalIDs.teacher_logout}>
         <LogoutForm />
+      </Modal>
+
+      <Modal
+        width={"w-[400px]"}
+        id={modalIDs.teacher_delete_student_upload_bucket}
+      >
+        <DeleteBucketForm />
       </Modal>
     </>
   );

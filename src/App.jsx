@@ -10,8 +10,15 @@ import TeacherLayout from "./layouts/TeacherLayout";
 import Material from "./pages/dashboard/teacher/Material";
 import NotFound from "./pages/NotFound";
 import StudentUpload from "./pages/dashboard/teacher/StudentUpload";
+import { modalIDs } from "./util/modal";
+import Modal from "./components/Modal";
+import MarkDown from "./components/MarkDown";
+import { useManualStore } from "./store/useManualStore";
+import UploadMaterials from "./pages/dashboard/student/UploadMaterials";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
+  const { focusManual } = useManualStore();
   return (
     <div>
       <Routes>
@@ -32,10 +39,16 @@ const App = () => {
           </Route>
           <Route path="student" element={<StudentLayout />}>
             <Route index element={<StudentHome />} />
+            <Route path="material" element={<UploadMaterials />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {/* user manual */}
+      <Modal width={"max-w-none w-[750px]"} id={modalIDs.teacher_manual}>
+        <MarkDown file={"/md/" + focusManual} />
+      </Modal>
+      <Toaster />
     </div>
   );
 };

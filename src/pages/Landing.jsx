@@ -3,6 +3,7 @@ import logo from "/image/logo.png";
 import Modal from "../components/Modal";
 import TeacherLoginForm from "../components/TeacherLoginForm";
 import { modalIDs, openModal } from "../util/modal";
+import StudentLogin from "../components/from/StudentLogin";
 
 const Landing = () => {
   return (
@@ -22,12 +23,20 @@ const Landing = () => {
             >
               Techaer Portal
             </button>
-            <button className="btn btn-secondary btn-lg">Student Portal</button>
+            <button
+              onClick={() => openModal(modalIDs.student_login)}
+              className="btn btn-secondary btn-lg"
+            >
+              Student Portal
+            </button>
           </div>
         </div>
       </div>
       <Modal id={modalIDs.teacher_login}>
         <TeacherLoginForm />
+      </Modal>
+      <Modal id={modalIDs.student_login}>
+        <StudentLogin />
       </Modal>
     </div>
   );

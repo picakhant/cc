@@ -2,8 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addFolder,
   deleteTeacherMaterial,
+  deletStudentFileBucket,
   getStudentFileBucketList,
+  getStudentFileUploadBucket,
   getTeacherUploadedMaterials,
+  studentGetTeacherMaterials,
+  studentUplaodMaterial,
   teacherUplaodMaterial,
 } from "../api/material";
 import QueryKeys from "./key";
@@ -61,5 +65,41 @@ export const usegetStudentFileBucketList = (room) => {
     queryKey: [QueryKeys.get_teacher_student_bucket_list, room],
     queryFn: () => getStudentFileBucketList(room),
     enabled: !!room,
+  });
+};
+
+export const useDeletStudentFileBucket = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ folderName, room }) => {
+      return deletStudentFileBucket(room, folderName);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.get_teacher_student_bucket_list],
+      });
+    },
+  });
+};
+
+export const useStudentGetTeacherMaterials = () => {
+  return useQuery({
+    queryKey: [QueryKeys.student_get_teacher_materials],
+    queryFn: studentGetTeacherMaterials,
+  });
+};
+
+export const useStudentFileUpload = () => {
+  return useMutation({
+    mutationFn: ({ folderName, file }) => {
+      return studentUplaodMaterial(folderName, file);
+    },
+  });
+};
+
+export const useGetStudentFileUploadBucket = () => {
+  return useQuery({
+    queryKey: [QueryKeys.student_get_file_buckets],
+    queryFn: getStudentFileUploadBucket,
   });
 };

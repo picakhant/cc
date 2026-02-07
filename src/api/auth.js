@@ -18,6 +18,18 @@ export const teacherLogin = async (password) => {
   }
 };
 
+export const studentLogin = async (room, rowNumber, username) => {
+  try {
+    const res = await instance.post("/auth/student-login/" + room, {
+      rowNumber,
+      username,
+    });
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const logout = async () => {
   try {
     const res = await instance.post("/auth/logout");

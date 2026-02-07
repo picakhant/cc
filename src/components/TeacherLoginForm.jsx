@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { closeModal, modalIDs } from "../util/modal";
+import { closeModal, modalIDs, openModal } from "../util/modal";
 import { useTeacherLogin } from "../react-query/auth";
 import { useNavigate } from "react-router-dom";
+import { useManualStore } from "../store/useManualStore";
 
 const TeacherLoginForm = () => {
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
 
+  const {setFocusManual} = useManualStore();
+
   const { mutate: login, isPending } = useTeacherLogin();
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -40,6 +44,12 @@ const TeacherLoginForm = () => {
         />
       </div>
       {errMessage && <div className="text-error">{errMessage}</div>}
+      <button type="button" onClick={() => { 
+        setFocusManual("set-passkey.md")
+        openModal(modalIDs.teacher_manual)
+       }} className="btn btn-lg btn-info w-full">
+        Click before login!
+      </button>
       <button
         disabled={isPending}
         type="submit"
